@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ubah warna sidebar utama */
+.filament-sidebar {
+    @apply bg-orange-500 text-white;
+}
+
+/* Warna dan ukuran sidebar kiri */
+.fi-sidebar {
+    width: 200px !important;
+    background-color: #1f98b4 !important; /* biru */
+    color: black;
+}
+
+/* Warna ikon menu sidebar */
+.fi-sidebar-item-icon {
+    color: white;
+}
+
+/* Hindari menggeser konten terlalu keras */
+.filament-main {
+    margin-left: 0 !important;
+}
+
+/* Hati-hati dengan .fi-ac, lebih baik hapus atau ubah class khusus */
+.custom-button-create {
+    background-color: #1f98b4;
+    color: black;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+}
+
+/* Ubah warna tombol "Create" atau "New Produk" */
+.fi-ac {
+    background-color: #1f98b4 !important; /* biru */
+    color: black !important;
+    padding: 0.5rem 0.10rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect */
+.fi-header-actions > a:hover {
+    background-color: #157aa1 !important; /* biru tua */
+    color: #f0f9ff !important;
+}
