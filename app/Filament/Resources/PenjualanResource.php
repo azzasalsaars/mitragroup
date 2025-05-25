@@ -3,15 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PenjualanResource\Pages;
-use App\Filament\Resources\PenjualanResource\RelationManagers;
 use App\Models\Penjualan;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Resources\ApiResource;
+
 
 class PenjualanResource extends Resource
 {
@@ -19,7 +19,7 @@ class PenjualanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static ?string $navigationlabel = 'Laporan';
+    protected static ?string $navigationLabel = 'Laporan';
 
     public static function form(Form $form): Form
     {
@@ -47,9 +47,16 @@ class PenjualanResource extends Resource
                     ->numeric(),
                 Forms\Components\FileUpload::make('produk')
                     ->image()
-                    ->disk('public')
-                
-               
+                    ->disk('public'),
+                Forms\Components\Radio::make('kategori')
+                    ->required()
+                    ->options([
+                        'makanan ringan' => 'Makanan Ringan',
+                        'minuman' => 'Minuman',
+                        'pembersih' => 'Pembersih',
+                        'sparepart' => 'Sparepart',
+                    ])
+                    ->inline(),
             ]);
     }
 
@@ -84,19 +91,30 @@ class PenjualanResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ImageColumn::make('produk')
-                     ->square()
-            ])
+                    ->square(),
+                Tables\Columns\TextColumn::make('kategori')
+                    ->sortable()
+                    ->searchable(),
+                    ])
             ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                SelectFilter::make('kategori')
+                    ->label('Filter Kategori')
+                    ->options([
+                        'makanan ringan' => 'Makanan Ringan',
+                        'minuman' => 'Minuman',
+                        'pembersih' => 'Pembersih',
+                        'sparepart' => 'Sparepart',
+                    ])
+                    
+                ])
+                    ->actions([
+                        Tables\Actions\EditAction::make(),
+                    ])
+                    ->bulkActions([
+                        Tables\Actions\BulkActionGroup::make([
+                            Tables\Actions\DeleteBulkAction::make(),
+                        ]),
+                    ]);
     }
 
     public static function getRelations(): array

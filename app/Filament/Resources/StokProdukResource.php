@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
 
 class StokProdukResource extends Resource
 {
@@ -35,6 +36,15 @@ class StokProdukResource extends Resource
                 Forms\Components\TextInput::make('harga')
                     ->required()
                     ->numeric(),
+                Forms\Components\Radio::make('kategori')
+                    ->required()
+                    ->options([
+                        'makanan ringan' => 'Makanan Ringan',
+                        'minuman' => 'Minuman',
+                        'pembersih' => 'Pembersih',
+                        'sparepart' => 'Sparepart',
+                    ])
+                    ->inline(),
             ]);
     }
 
@@ -60,10 +70,21 @@ class StokProdukResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('kategori')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('kategori')
+                    ->label('Filter Kategori')
+                    ->options([
+                        'makanan ringan' => 'Makanan Ringan',
+                        'minuman' => 'Minuman',
+                        'pembersih' => 'Pembersih',
+                        'sparepart' => 'Sparepart',
+                    ])
+                    
+                ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
