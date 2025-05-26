@@ -11,14 +11,8 @@
     <div class="bg-white p-4 rounded-xl shadow border border-gray-200">
         <div class="text-lg font-semibold mb-2">Stok Produk Menipis</div>
 
-        <form method="GET" action="{{ route('penjualan.index') }}" class="mb-4">
-            <label for="kategori">Filter Kategori:</label>
-            <select name="kategori" id="kategori" onchange="this.form.submit()">
-                <option value="">-- Semua Kategori --</option>
-                <option value="makanan" {{ request('kategori') == 'makanan' ? 'selected' : '' }}>Makanan</option>
-                <option value="minuman" {{ request('kategori') == 'minuman' ? 'selected' : '' }}>Minuman</option>
-            </select>
-        </form>
+
+
 
         <table class="w-full border-collapse text-sm">
             <thead class="bg-gray-100 text-left">
